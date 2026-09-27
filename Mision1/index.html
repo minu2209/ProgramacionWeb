@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BUSCAMINAS</title>
+        <link rel="stylesheet" href="style.css">
+
+    </head>
+
+    <body>
+        <div id="juego">
+            <header id="panel-info">
+                <div id="contador-minas">💣 <span id="minas-restantes">10</span></div>
+                <button id="btn-reiniciar">🙂</button>
+                <div id="cronometro">⏱️ <span id="tiempo">0</span> </div>
+            </header>
+
+            <section id="panel-config">
+                <label for="dificultad">Dificultad:</label>
+                <select id="dificultad">
+                    <option value="facil"> Fácil</option>
+                    <option value="medio"> Medio</option>
+                    <option value="dificil"> Difícil</option>
+                </select>
+            </section>
+
+            <main id="tablero">
+                <!-- Espacio donde JavaScript irá meriendo las celdas dinámicamente -->
+            </main>
+
+            <div id="mensaje-resultado" class="oculto">
+                <p id="texto-resultado"></p>
+                <button id="btn-jugar-de-nuevo">Jugar de nuevo</button>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>

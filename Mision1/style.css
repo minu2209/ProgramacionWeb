@@ -1,0 +1,242 @@
+:root {
+  /* ===== Tema claro (blueprint) ===== */
+  --bg: #eef1f6;
+  --bg-panel: #ffffff;
+  --grid-line: #c7d0e0;
+  --ink: #1c2541;
+  --ink-suave: #5b6785;
+
+  --celda-tapada: #dde3ed;
+  --celda-tapada-hover: #cbd4e5;
+  --celda-destapada: #f7f9fc;
+  --celda-borde: #b8c2d4;
+
+  --bandera: #c8553d;
+  --mina: #c8553d;
+  --acento: #3a5a9c;
+
+  /* Colores clásicos de los números del buscaminas */
+  --num-1: #3a5a9c;
+  --num-2: #3d8b5f;
+  --num-3: #c8553d;
+  --num-4: #5b3f9c;
+  --num-5: #a0522d;
+  --num-6: #2f9c9c;
+  --num-7: #1c2541;
+  --num-8: #6b7280;
+
+  --radio: 6px;
+  --fuente-ui: system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fuente-num: "SF Mono", "Cascadia Code", Consolas, monospace;
+
+  --transicion: 0.2s ease;
+}
+
+/* ===== Tema oscuro (terminal secreto) ===== */
+[data-theme="dark"] {
+  --bg: #0d1210;
+  --bg-panel: #111815;
+  --grid-line: #1f2c26;
+  --ink: #4ffa8f;
+  --ink-suave: #2fa863;
+
+  --celda-tapada: #142019;
+  --celda-tapada-hover: #1c2b22;
+  --celda-destapada: #0a0f0c;
+  --celda-borde: #24352c;
+
+  --bandera: #ffb000;
+  --mina: #ff4d4d;
+  --acento: #4ffa8f;
+
+  --num-1: #4ffa8f;
+  --num-2: #ffb000;
+  --num-3: #ff4d4d;
+  --num-4: #00d1c1;
+  --num-5: #ff8fa3;
+  --num-6: #4ffa8f;
+  --num-7: #ffffff;
+  --num-8: #6b8f7c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px;
+  color: var(--ink);
+  font-family: var(--fuente-ui);
+  transition: background-color var(--transicion), color var(--transicion);
+}
+
+#juego {
+  background-color: var(--bg-panel);
+  border: 1px solid var(--celda-borde);
+  border-radius: var(--radio);
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: background-color var(--transicion), border-color var(--transicion);
+}
+
+/* ===== Panel superior ===== */
+#panel-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  background-color: var(--celda-destapada);
+  border: 1px solid var(--celda-borde);
+  border-radius: var(--radio);
+  font-family: var(--fuente-num);
+  font-size: 1.1rem;
+}
+
+#contador-minas,
+#cronometro {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 60px;
+}
+
+#btn-reiniciar {
+  font-size: 1.4rem;
+  background: none;
+  border: 1px solid var(--celda-borde);
+  border-radius: var(--radio);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform var(--transicion), background-color var(--transicion);
+}
+
+#btn-reiniciar:hover {
+  background-color: var(--celda-tapada-hover);
+  transform: scale(1.05);
+}
+
+/* ===== Panel de configuración ===== */
+#panel-config {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  color: var(--ink-suave);
+}
+
+#dificultad {
+  font-family: var(--fuente-ui);
+  padding: 6px 10px;
+  border-radius: var(--radio);
+  border: 1px solid var(--celda-borde);
+  background-color: var(--bg-panel);
+  color: var(--ink);
+}
+
+/* ===== Tablero ===== */
+#tablero {
+  display: grid;
+  gap: 3px;
+  width: fit-content;
+  margin: 0 auto;
+  /* grid-template-columns se define desde JS según la dificultad */
+}
+
+.celda {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fuente-num);
+  font-weight: 600;
+  font-size: 0.95rem;
+  background-color: var(--celda-tapada);
+  border: 1px solid var(--celda-borde);
+  border-radius: 3px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--transicion), transform 0.1s ease;
+}
+
+.celda:hover:not(.destapada) {
+  background-color: var(--celda-tapada-hover);
+}
+
+.celda:active:not(.destapada) {
+  transform: scale(0.95);
+}
+
+.celda.destapada {
+  background-color: var(--celda-destapada);
+  cursor: default;
+}
+
+.celda.bandera {
+  color: var(--bandera);
+}
+
+.celda.mina {
+  color: var(--mina);
+}
+
+.celda.mina.explotada {
+  background-color: var(--mina);
+  color: var(--bg-panel);
+}
+
+/* Colores por número de minas adyacentes */
+.celda[data-num="1"] { color: var(--num-1); }
+.celda[data-num="2"] { color: var(--num-2); }
+.celda[data-num="3"] { color: var(--num-3); }
+.celda[data-num="4"] { color: var(--num-4); }
+.celda[data-num="5"] { color: var(--num-5); }
+.celda[data-num="6"] { color: var(--num-6); }
+.celda[data-num="7"] { color: var(--num-7); }
+.celda[data-num="8"] { color: var(--num-8); }
+
+/* ===== Mensaje de resultado ===== */
+#mensaje-resultado {
+  margin-top: 16px;
+  text-align: center;
+}
+
+#mensaje-resultado.oculto {
+  display: none;
+}
+
+#texto-resultado {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--acento);
+}
+
+#btn-jugar-de-nuevo {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radio);
+  border: 1px solid var(--acento);
+  background: none;
+  color: var(--acento);
+  cursor: pointer;
+  font-family: var(--fuente-ui);
+  transition: background-color var(--transicion), color var(--transicion);
+}
+
+#btn-jugar-de-nuevo:hover {
+  background-color: var(--acento);
+  color: var(--bg-panel);
+}
