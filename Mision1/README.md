@@ -93,7 +93,7 @@ El cambio de tema se controla mediante un atributo `data-theme` y variables CSS.
 
 ## Uso de IA
 
-Durante el desarrollo de esta misión se utilizó Claude (Anthropic) como herramienta de apoyo, alguno de los promts ayudaron a solucionar:
+Durante el desarrollo de esta misión se utilizó Claude (Anthropic) como herramienta de apoyo, alguno de los prompts resolvieron:
 
 - Ideas iniciales de proyectos viables con HTML/CSS/JS puro.
 - Explicación de conceptos (flood fill, delegación de eventos, primer clic seguro).
