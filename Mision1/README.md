@@ -95,9 +95,9 @@ El cambio de tema se controla mediante un atributo `data-theme` y variables CSS.
 
 Durante el desarrollo de esta misión se utilizó Claude (Anthropic) como herramienta de apoyo, alguno de los promts ayudaron a solucionar:
 
-- Ideas iniciales de proyectos viables con HTML/CSS/JS puro
-- Explicación de conceptos (flood fill, delegación de eventos, primer clic seguro)
-- Ayuda para depurar errores concretos (elementos null, selector de dificultad no funcional)
+- Ideas iniciales de proyectos viables con HTML/CSS/JS puro.
+- Explicación de conceptos (flood fill, delegación de eventos, primer clic seguro).
+- Ayuda para depurar errores concretos (elementos null, selector de dificultad no funcional).
 - Revisión de rendimiento tras la primera corrección: sustituir las búsquedas repetidas con querySelector por referencias directas guardadas en la matriz de estado, y convertir el flood fill recursivo en iterativo.
 
 ### ¿Qué se delegó?

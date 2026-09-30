@@ -63,12 +63,16 @@ function crearMatrizVacia() {
   }
 }
 
-// Pinta las celdas en el DOM según el tamaño del tablero
+// Pinta las celdas en el DOM según el tamaño del tablero.
+// MEJORA: ya NO se añade un addEventListener por cada celda. Los eventos se
+// gestionan una sola vez sobre #tablero mediante delegación de eventos (ver
+// más abajo, sección "Eventos generales"), aprovechando que los eventos hacen
+// bubbling hacia el contenedor padre. Esto evita crear cientos de listeners
+// individuales (por ejemplo 480 x 2 en dificultad difícil).
 function pintarTablero() {
   elTablero.innerHTML = '';
   elTablero.style.gridTemplateColumns = `repeat(${columnas}, 32px)`;
 
-  // Fragmento para insertar todas las celdas de golpe (mejor rendimiento)
   const fragmento = document.createDocumentFragment();
 
   for (let f = 0; f < filas; f++) {
@@ -77,9 +81,6 @@ function pintarTablero() {
       celda.classList.add('celda');
       celda.dataset.fila = f;
       celda.dataset.columna = c;
-
-      celda.addEventListener('click', manejarClicIzquierdo);
-      celda.addEventListener('contextmenu', manejarClicDerecho);
 
       // Guardamos la referencia al elemento directamente en la matriz,
       // así no hace falta volver a buscarlo con querySelector nunca más
@@ -93,6 +94,11 @@ function pintarTablero() {
 }
 
 // ===== Colocar minas (tras el primer clic, para que nunca pierdas a la primera) =====
+// El área "segura" del primer clic es de 3x3 (la celda pulsada + sus 8 vecinas),
+// no solo la celda individual. Se eligió así en vez de proteger solo la celda
+// pulsada para aumentar la probabilidad de que el primer clic destape una zona
+// amplia mediante el flood fill, en vez de arriesgarse a revelar una única
+// celda con número rodeada de minas por todos los lados.
 function colocarMinas(filaSegura, columnaSegura) {
   let minasColocadas = 0;
 
@@ -142,13 +148,10 @@ function recorrerVecinos(f, c, callback) {
 }
 
 // ===== Clic izquierdo: destapar celda =====
-function manejarClicIzquierdo(evento) {
+function manejarClicIzquierdo(f, c) {
   if (juegoTerminado) return;
 
-  const f = Number(evento.target.dataset.fila);
-  const c = Number(evento.target.dataset.columna);
   const datoCelda = tablero[f][c];
-
   if (datoCelda.destapada || datoCelda.bandera) return;
 
   if (primerClic) {
@@ -197,14 +200,10 @@ function destaparCelda(filaInicial, columnaInicial) {
 }
 
 // ===== Clic derecho: poner/quitar bandera =====
-function manejarClicDerecho(evento) {
-  evento.preventDefault();
+function manejarClicDerecho(f, c) {
   if (juegoTerminado) return;
 
-  const f = Number(evento.target.dataset.fila);
-  const c = Number(evento.target.dataset.columna);
   const datoCelda = tablero[f][c];
-
   if (datoCelda.destapada) return;
 
   // No dejamos poner más banderas que minas totales,
@@ -292,6 +291,28 @@ function detenerCronometro() {
 }
 
 // ===== Eventos generales =====
+// MEJORA: delegación de eventos. En vez de un listener por celda, se ponen
+// solo 2 listeners en total sobre el contenedor #tablero, y se identifica la
+// celda pulsada a partir de evento.target (aprovechando el bubbling).
+elTablero.addEventListener('click', (evento) => {
+  const celda = evento.target.closest('.celda');
+  if (!celda) return; // el clic no fue sobre una celda (p.ej. un hueco del grid)
+
+  const f = Number(celda.dataset.fila);
+  const c = Number(celda.dataset.columna);
+  manejarClicIzquierdo(f, c);
+});
+
+elTablero.addEventListener('contextmenu', (evento) => {
+  const celda = evento.target.closest('.celda');
+  if (!celda) return;
+
+  evento.preventDefault();
+  const f = Number(celda.dataset.fila);
+  const c = Number(celda.dataset.columna);
+  manejarClicDerecho(f, c);
+});
+
 elBtnReiniciar.addEventListener('click', iniciarJuego);
 elBtnJugarDeNuevo.addEventListener('click', iniciarJuego);
 elDificultad.addEventListener('change', iniciarJuego);
