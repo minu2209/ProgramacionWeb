@@ -27,9 +27,9 @@ Mision1/
 └── script.js
 ```
 
-* `index.html`: contiene la estructura de la interfaz y los elementos del juego.
-* `styles.css`: contiene los estilos visuales del proyecto y los diferentes estados del tablero.
-* `script.js`: contiene la lógica del Buscaminas, la creación del tablero, las minas, los eventos, la victoria y la derrota.
+- `index.html`: contiene la estructura de la interfaz y los elementos del juego.
+- `styles.css`: contiene los estilos visuales del proyecto y los diferentes estados del tablero.
+- `script.js`: contiene la lógica del Buscaminas, la creación del tablero, las minas, los eventos, la victoria y la derrota.
 
 ### Tablero representado mediante una matriz
 
@@ -59,10 +59,10 @@ Esto permite implementar el comportamiento habitual del Buscaminas conocido como
 
 La interacción con el tablero se realiza mediante `addEventListener`.
 
-* `click`: descubre una casilla.
-* `contextmenu`: coloca o quita una bandera.
-* `change`: permite cambiar la dificultad.
-* `keydown`: controla la secuencia utilizada para activar el modo oscuro.
+- `click`: descubre una casilla.
+- `contextmenu`: coloca o quita una bandera.
+- `change`: permite cambiar la dificultad.
+- `keydown`: controla la secuencia utilizada para activar el modo oscuro.
 
 ### Interfaz y DOM
 
@@ -78,18 +78,18 @@ El cambio de tema se controla mediante un atributo `data-theme` y variables CSS.
 
 ## Funcionalidades
 
-* Tres niveles de dificultad.
-* Generación aleatoria de minas.
-* Primera casilla segura.
-* Descubrimiento de casillas.
-* Banderas mediante clic derecho.
-* Contador de minas.
-* Cronómetro.
-* Detección de victoria.
-* Detección de derrota.
-* Revelado de las minas al perder.
-* Descubrimiento automático de zonas vacías.
-* Modo oscuro mediante una secuencia de teclas.
+- Tres niveles de dificultad.
+- Generación aleatoria de minas.
+- Primera casilla segura.
+- Descubrimiento de casillas.
+- Banderas mediante clic derecho.
+- Contador de minas.
+- Cronómetro.
+- Detección de victoria.
+- Detección de derrota.
+- Revelado de las minas al perder.
+- Descubrimiento automático de zonas vacías.
+- Modo oscuro mediante una secuencia de teclas.
 
 ## Uso de IA
 
@@ -128,9 +128,9 @@ También es importante que esta función se ejecute después del primer clic, ya
 
 ## Tecnologías utilizadas
 
-* HTML5
-* CSS3
-* JavaScript
-* DOM
-* Git
-* GitHub
+- HTML5
+- CSS3
+- JavaScript
+- DOM
+- Git
+- GitHub
